@@ -3,14 +3,9 @@ import getBackendActor from "../backend/getBackendActor";
 import * as Crypto from "expo-crypto";
 import { Alert } from "react-native";
 import Toast from "react-native-root-toast";
+import toastOptions from "../utils/toastOptions";
 
 const actor = getBackendActor();
-
-const toastOptions = {
-  position: -50,
-  shadow: false,
-  backgroundColor: "rgba(0,0,0,0.8)",
-};
 
 const usePlaylistStore = create((set, get) => ({
   playlist: [],
