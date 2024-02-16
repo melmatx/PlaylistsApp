@@ -1,0 +1,12 @@
+type Song = 
+ record {
+   artist: text;
+   id: text;
+   name: text;
+ };
+service : {
+  addToPlaylist: (text, text, text) -> ();
+  getPlaylist: () -> (vec Song) query;
+  removeFromPlaylist: (text) -> ();
+  resetPlaylist: () -> ();
+}

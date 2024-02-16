@@ -1,0 +1,28 @@
+{
+  "canisters": {
+    "playlists": {
+      "main": "backend/main.mo",
+      "type": "motoko",
+      "declarations": {
+        "bindings": null,
+        "env_override": "bkyz2-fmaaa-aaaaa-qaaaq-cai",
+        "node_compatibility": true,
+        "output": "backend/declarations/playlists"
+      }
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:4943",
+      "type": "ephemeral"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}

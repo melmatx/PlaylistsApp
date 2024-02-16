@@ -1,21 +1,48 @@
 {
-  "name": "greetapp",
+  "name": "playlists",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "prebuild": "dfx generate",
+    "deploy:local": "dfx deploy --network=local",
+    "deploy:ic": "dfx deploy --network=ic",
+    "generate": "dfx generate playlists"
   },
   "dependencies": {
+    "@dfinity/agent": "file:dfinity-agent-0.20.2.tgz",
+    "@dfinity/bls-verify": "file:dfinity-bls-verify-0.20.2.tgz",
+    "@dfinity/candid": "^0.20.2",
+    "@dfinity/principal": "^0.20.2",
+    "@noble/curves": "file:noble-curves-1.2.0.tgz",
+    "@react-navigation/native": "^6.1.10",
+    "@react-navigation/native-stack": "^6.9.18",
+    "amcl-js": "^3.1.0",
+    "buffer": "^6.0.3",
     "expo": "~50.0.6",
     "expo-status-bar": "~1.11.1",
     "react": "18.2.0",
-    "react-native": "0.73.4"
+    "react-native": "0.73.4",
+    "react-native-fetch-api": "^3.0.0",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-polyfill-globals": "^3.1.0",
+    "react-native-safe-area-context": "4.8.2",
+    "react-native-screens": "~3.29.0",
+    "react-navigation-header-buttons": "^11.2.1",
+    "text-encoding": "^0.7.0",
+    "web-streams-polyfill": "^3.3.2",
+    "zustand": "^4.5.0",
+    "expo-crypto": "~12.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
+  },
+  "engines": {
+    "node": "^12 || ^14 || ^16 || >=17",
+    "npm": "^7.17 || >=8"
   },
   "private": true
 }
