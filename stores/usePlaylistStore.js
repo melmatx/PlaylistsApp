@@ -1,8 +1,16 @@
 import { create } from "zustand";
 import getBackendActor from "../backend/getBackendActor";
 import * as Crypto from "expo-crypto";
+import { Alert } from "react-native";
+import Toast from "react-native-root-toast";
 
 const actor = getBackendActor();
+
+const toastOptions = {
+  position: -50,
+  shadow: false,
+  backgroundColor: "rgba(0,0,0,0.8)",
+};
 
 const usePlaylistStore = create((set, get) => ({
   playlist: [],
@@ -13,9 +21,18 @@ const usePlaylistStore = create((set, get) => ({
 
     set({ isRefreshing: true });
 
-    actor.getPlaylist().then((data) => {
-      set({ playlist: data, isRefreshing: false });
-    });
+    actor
+      .getPlaylist()
+      .then((data) => {
+        set({ playlist: data });
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Failed to fetch playlist");
+      })
+      .finally(() => {
+        set({ isRefreshing: false });
+      });
   },
   addToPlaylist: async (name, artist) => {
     if (get().isLoading) return;
@@ -24,18 +41,36 @@ const usePlaylistStore = create((set, get) => ({
 
     const id = Crypto.randomUUID();
 
-    actor.addToPlaylist(id, name, artist).then(() => {
-      set({ isLoading: false });
-    });
+    actor
+      .addToPlaylist(id, name, artist)
+      .then(() => {
+        Toast.show("Song added to playlist.", toastOptions);
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Failed to add song to playlist");
+      })
+      .finally(() => {
+        set({ isLoading: false });
+      });
 
     set((state) => ({ playlist: [{ id, name, artist }, ...state.playlist] }));
   },
   removeFromPlaylist: async (id) => {
     set({ isLoading: true });
 
-    actor.removeFromPlaylist(id).then(() => {
-      set({ isLoading: false });
-    });
+    actor
+      .removeFromPlaylist(id)
+      .then(() => {
+        Toast.show("Song removed from playlist.", toastOptions);
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Failed to remove song from playlist");
+      })
+      .finally(() => {
+        set({ isLoading: false });
+      });
 
     set((state) => ({
       playlist: state.playlist.filter((song) => song.id !== id),
@@ -44,9 +79,18 @@ const usePlaylistStore = create((set, get) => ({
   resetPlaylist: async () => {
     set({ isLoading: true });
 
-    actor.resetPlaylist().then(() => {
-      set({ isLoading: false });
-    });
+    actor
+      .resetPlaylist()
+      .then(() => {
+        Toast.show("Playlist reset successfully.", toastOptions);
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert("Failed to reset playlist");
+      })
+      .finally(() => {
+        set({ isLoading: false });
+      });
 
     set({ playlist: [] });
   },

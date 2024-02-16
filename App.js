@@ -1,6 +1,7 @@
 import "react-native-polyfill-globals/auto";
 import "./globals";
 
+import { RootSiblingParent } from "react-native-root-siblings";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigation from "./navigation/MainNavigation.js";
 import { HeaderButtonsProvider } from "react-navigation-header-buttons";
@@ -11,7 +12,9 @@ const App = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <HeaderButtonsProvider stackType="native">
         <NavigationContainer>
-          <MainNavigation />
+          <RootSiblingParent>
+            <MainNavigation />
+          </RootSiblingParent>
         </NavigationContainer>
       </HeaderButtonsProvider>
     </GestureHandlerRootView>
