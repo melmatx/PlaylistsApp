@@ -1,4 +1,6 @@
 // Version: 1.0.0
+type List<T> = ?(T, List<T>);
+type Song = {artist : Text; id : Text; name : Text};
 actor {
-  
+  stable var playlist : ?(Song, List<Song>)
 };
