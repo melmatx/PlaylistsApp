@@ -8,12 +8,14 @@ actor Playlists {
     artist : Text;
   };
 
-  var playlist : List.List<Song> = List.nil<Song>();
+  stable var playlist : List.List<Song> = List.nil<Song>();
 
+  // Get playlist as an array
   public query func getPlaylist() : async [Song] {
     return List.toArray(playlist);
   };
 
+  // Add a song to the playlist
   public func addToPlaylist(idText : Text, nameText : Text, artistText : Text) : async () {
     if (idText == "" or nameText == "" or artistText == "") {
       return;
@@ -28,6 +30,7 @@ actor Playlists {
     playlist := List.push(song, playlist);
   };
 
+  // Remove a song from the playlist
   public func removeFromPlaylist(idText : Text) : async () {
     func remove(song : Song) : Bool {
       song.id != idText;
@@ -36,6 +39,7 @@ actor Playlists {
     playlist := List.filter(playlist, remove);
   };
 
+  // Clear the playlist
   public func resetPlaylist() : async () {
     playlist := List.nil<Song>();
   };
