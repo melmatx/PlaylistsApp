@@ -7,12 +7,19 @@ import {
   Text,
   View,
 } from "react-native";
-import { Item } from "react-navigation-header-buttons";
+import {
+  HiddenItem,
+  Item,
+  OverflowMenu,
+} from "react-navigation-header-buttons";
 import Routes from "../Routes";
 import SongItem from "../../components/SongItem";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import usePlaylistStore from "../../stores/usePlaylistStore";
 import { useShallow } from "zustand/react/shallow";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import useAuthStore from "../../stores/useAuthStore";
+import { SwipeableProvider } from "../../contexts/SwipeableContext";
 
 const Home = ({ navigation }) => {
   const { playlist, fetchPlaylist, resetPlaylist, isRefreshing } =
@@ -25,6 +32,7 @@ const Home = ({ navigation }) => {
         isRefreshing: state.isRefreshing,
       }))
     );
+  const logout = useAuthStore((state) => state.logout);
   const insets = useSafeAreaInsets();
 
   const currentSwipeRef = useRef(null);
@@ -45,27 +53,34 @@ const Home = ({ navigation }) => {
 
   const headerLeft = useCallback(() => {
     return (
-      <Item
-        title="Clear"
-        onPress={() => {
-          Alert.alert(
-            "Clear playlist",
-            "Are you sure you want to clear your playlist?",
-            [
-              {
-                text: "Cancel",
-                style: "cancel",
-              },
-              {
-                text: "Clear",
-                onPress: () => resetPlaylist(),
-              },
-            ]
-          );
-        }}
-        disabled={playlist.length <= 0}
-        buttonStyle={playlist.length <= 0 && { color: "gray" }}
-      ></Item>
+      <OverflowMenu
+        OverflowIcon={({ color }) => (
+          <Ionicons name={"ellipsis-horizontal"} size={20} color={color} />
+        )}
+      >
+        <HiddenItem
+          title="Clear Playlist"
+          onPress={() => {
+            Alert.alert(
+              "Clear playlist",
+              "Are you sure you want to clear your playlist?",
+              [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Clear",
+                  onPress: () => resetPlaylist(),
+                },
+              ]
+            );
+          }}
+          disabled={playlist.length <= 0}
+          buttonStyle={playlist.length <= 0 && { color: "gray" }}
+        />
+        <HiddenItem title={"Logout"} onPress={logout} />
+      </OverflowMenu>
     );
   }, [playlist]);
 
@@ -76,29 +91,31 @@ const Home = ({ navigation }) => {
     });
   }, [navigation, headerRight, headerLeft]);
 
-  const renderItem = useCallback(
-    ({ item }) => <SongItem item={item} previousRef={currentSwipeRef} />,
-    []
-  );
+  const renderItem = useCallback(({ item }) => <SongItem item={item} />, []);
 
   return (
-    <FlatList
-      data={playlist}
-      contentInset={{ bottom: insets.bottom }}
-      keyExtractor={(_, index) => index.toString()}
-      contentContainerStyle={{ rowGap: 10, padding: 15 }}
-      renderItem={renderItem}
-      refreshControl={
-        <RefreshControl refreshing={isRefreshing} onRefresh={fetchPlaylist} />
-      }
-      ListEmptyComponent={
-        !isRefreshing && (
-          <View style={styles.emptyTextContainer}>
-            <Text style={styles.emptyText}>No songs in the playlist yet.</Text>
-          </View>
-        )
-      }
-    />
+    <SwipeableProvider value={{ currentSwipeRef }}>
+      <FlatList
+        data={playlist}
+        contentInset={{ bottom: insets.bottom }}
+        keyExtractor={(_, index) => index.toString()}
+        contentContainerStyle={{ rowGap: 10, padding: 15 }}
+        renderItem={renderItem}
+        onScrollBeginDrag={() => currentSwipeRef.current?.close()}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={fetchPlaylist} />
+        }
+        ListEmptyComponent={
+          !isRefreshing && (
+            <View style={styles.emptyTextContainer}>
+              <Text style={styles.emptyText}>
+                No songs in the playlist yet.
+              </Text>
+            </View>
+          )
+        }
+      />
+    </SwipeableProvider>
   );
 };
 

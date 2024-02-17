@@ -1,12 +1,5 @@
 import React, { memo, useCallback, useRef } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  PlatformColor,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Alert, PlatformColor, StyleSheet, Text, View } from "react-native";
 import {
   BorderlessButton,
   RectButton,
@@ -16,10 +9,12 @@ import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { useFocusEffect } from "@react-navigation/native";
 import usePlaylistStore from "../stores/usePlaylistStore";
 import { useShallow } from "zustand/react/shallow";
+import { useSwipeableContext } from "../contexts/SwipeableContext";
 
-const SongItem = ({ item, previousRef }) => {
+const SongItem = ({ item }) => {
   const swipeRef = useRef(null);
 
+  const { currentSwipeRef } = useSwipeableContext();
   const { removeFromPlaylist } = usePlaylistStore(
     useShallow((state) => ({
       removeFromPlaylist: state.removeFromPlaylist,
@@ -37,13 +32,13 @@ const SongItem = ({ item, previousRef }) => {
   );
 
   const onSwipeableWillOpen = useCallback(() => {
-    if (previousRef && previousRef.current !== null) {
-      if (previousRef.current !== swipeRef.current) {
-        previousRef.current?.close();
+    if (currentSwipeRef && currentSwipeRef.current !== null) {
+      if (currentSwipeRef.current !== swipeRef.current) {
+        currentSwipeRef.current?.close();
       }
     }
-    previousRef.current = swipeRef.current;
-  }, [previousRef]);
+    currentSwipeRef.current = swipeRef.current;
+  }, [currentSwipeRef]);
 
   const renderRightActions = useCallback(() => {
     return (
