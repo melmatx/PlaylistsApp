@@ -35,11 +35,14 @@ const useAuthStore = create((set, get) => ({
     // Get identity from delegation
     const delegation = await AsyncStorage.getItem("delegation");
 
+    // If delegation exists, check if it's valid
     if (delegation) {
       const chain = DelegationChain.fromJSON(JSON.parse(delegation));
 
       if (isDelegationValid(chain)) {
         const id = new DelegationIdentity(baseKey, chain);
+
+        // Set identity with the base key
         set({ baseKey, identity: id, isReady: true });
       } else {
         await AsyncStorage.removeItem("delegation");
@@ -49,6 +52,7 @@ const useAuthStore = create((set, get) => ({
     set({ baseKey, isReady: true });
   },
   setIdentity: async (delegation) => {
+    // Decode delegation from uri result
     const decodedFromUri = decodeURIComponent(delegation);
     const chain = DelegationChain.fromJSON(JSON.parse(decodedFromUri));
 
@@ -71,6 +75,7 @@ const useAuthStore = create((set, get) => ({
     return getBackendActor(get().identity);
   },
   login: async () => {
+    // Get public key
     const publicDerKey = toHex(get().baseKey.getPublicKey().toDer());
     const url = new URL("https://tdpaj-biaaa-aaaab-qaijq-cai.icp0.io/"); // Replace with own canister url
 
