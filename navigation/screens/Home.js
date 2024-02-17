@@ -37,6 +37,8 @@ const Home = ({ navigation }) => {
 
   const currentSwipeRef = useRef(null);
 
+  const renderItem = useCallback(({ item }) => <SongItem item={item} />, []);
+
   useEffect(() => {
     fetchPlaylist();
   }, []);
@@ -90,8 +92,6 @@ const Home = ({ navigation }) => {
       headerLeft,
     });
   }, [navigation, headerRight, headerLeft]);
-
-  const renderItem = useCallback(({ item }) => <SongItem item={item} />, []);
 
   return (
     <SwipeableProvider value={{ currentSwipeRef }}>
