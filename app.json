@@ -2,6 +2,7 @@
   "expo": {
     "name": "Playlists",
     "slug": "Playlists",
+    "scheme": "playlists",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +24,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["expo-secure-store"]
   }
 }

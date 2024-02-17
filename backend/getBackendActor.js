@@ -5,10 +5,11 @@ import { createActor, canisterId } from "./declarations/playlists";
 const host =
   Platform.OS === "android" ? "http://10.0.2.2:4943" : "http://127.0.0.1:4943";
 
-const getBackendActor = (options = {}) => {
+const getBackendActor = (identity) => {
   return createActor(canisterId, {
     agentOptions: {
       host,
+      // identity,
       fetchOptions: {
         reactNative: {
           __nativeResponseType: "base64",
@@ -24,7 +25,6 @@ const getBackendActor = (options = {}) => {
     actorOptions: {
       blsVerify,
     },
-    ...options,
   });
 };
 

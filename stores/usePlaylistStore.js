@@ -1,20 +1,24 @@
 import { create } from "zustand";
-import getBackendActor from "../backend/getBackendActor";
 import * as Crypto from "expo-crypto";
 import { Alert } from "react-native";
 import Toast from "react-native-root-toast";
 import toastOptions from "../utils/toastOptions";
+import useAuthStore from "./useAuthStore";
 
-const actor = getBackendActor();
-
-const usePlaylistStore = create((set, get) => ({
+const initialState = {
   playlist: [],
   isLoading: false,
   isRefreshing: false,
+};
+
+const usePlaylistStore = create((set, get) => ({
+  ...initialState,
   fetchPlaylist: async () => {
     if (get().isRefreshing) return;
 
     set({ isRefreshing: true });
+
+    const actor = useAuthStore.getState().getActor();
 
     actor
       .getPlaylist()
@@ -33,6 +37,8 @@ const usePlaylistStore = create((set, get) => ({
     if (get().isLoading) return;
 
     set({ isLoading: true });
+
+    const actor = useAuthStore.getState().getActor();
 
     const id = Crypto.randomUUID();
 
@@ -54,6 +60,8 @@ const usePlaylistStore = create((set, get) => ({
   removeFromPlaylist: async (id) => {
     set({ isLoading: true });
 
+    const actor = useAuthStore.getState().getActor();
+
     actor
       .removeFromPlaylist(id)
       .then(() => {
@@ -73,6 +81,8 @@ const usePlaylistStore = create((set, get) => ({
   },
   resetPlaylist: async () => {
     set({ isLoading: true });
+
+    const actor = useAuthStore.getState().getActor();
 
     actor
       .resetPlaylist()

@@ -16,6 +16,7 @@
     "@dfinity/agent": "file:dfinity-agent-0.20.2.tgz",
     "@dfinity/bls-verify": "file:dfinity-bls-verify-0.20.2.tgz",
     "@dfinity/candid": "^0.20.2",
+    "@dfinity/identity": "^0.20.2",
     "@dfinity/principal": "^0.20.2",
     "@noble/curves": "file:noble-curves-1.2.0.tgz",
     "@react-navigation/native": "^6.1.10",
@@ -24,7 +25,11 @@
     "buffer": "^6.0.3",
     "expo": "~50.0.6",
     "expo-crypto": "~12.8.0",
+    "expo-linking": "~6.2.2",
+    "expo-secure-store": "~12.8.1",
+    "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
+    "expo-web-browser": "^12.8.2",
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-fetch-api": "^3.0.0",
@@ -36,7 +41,8 @@
     "react-navigation-header-buttons": "^11.2.1",
     "text-encoding": "^0.7.0",
     "web-streams-polyfill": "^3.3.2",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "@react-native-async-storage/async-storage": "1.21.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
