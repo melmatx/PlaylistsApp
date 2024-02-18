@@ -46,7 +46,7 @@ const SongItem = ({ item }) => {
         activeOpacity={0.8}
         onPress={() =>
           removeFromPlaylist(item.id).then(() => {
-            swipeRef.current?.close();
+            swipeRef.current?.reset();
           })
         }
       >

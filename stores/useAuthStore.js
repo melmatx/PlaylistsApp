@@ -10,7 +10,7 @@ import * as SecureStore from "expo-secure-store";
 import * as WebBrowser from "expo-web-browser";
 import * as Linking from "expo-linking";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import getBackendActor from "../backend/getBackendActor";
+import getBackendActor from "../src/actor";
 
 const initialState = {
   baseKey: "",
@@ -77,7 +77,9 @@ const useAuthStore = create((set, get) => ({
   login: async () => {
     // Get public key
     const publicDerKey = toHex(get().baseKey.getPublicKey().toDer());
-    const url = new URL("https://tdpaj-biaaa-aaaab-qaijq-cai.icp0.io/"); // Replace with own canister url
+    const url = new URL(
+      "http://127.0.0.1:4943/?canisterId=bkyz2-fmaaa-aaaaa-qaaaq-cai"
+    ); // Replace with own canister url
 
     // Set redirect uri
     const prefix = Linking.createURL("/");

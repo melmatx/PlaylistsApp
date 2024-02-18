@@ -1,20 +1,21 @@
 {
   "canisters": {
+    "internet_identity": {
+      "type": "pull",
+      "id": "rdmx6-jaaaa-aaaaa-aaadq-cai",
+      "frontend": {}
+    },
     "playlists": {
-      "main": "backend/main.mo",
+      "main": "src/playlists/main.mo",
       "type": "motoko",
       "declarations": {
-        "bindings": null,
-        "env_override": "bkyz2-fmaaa-aaaaa-qaaaq-cai",
-        "node_compatibility": true,
-        "output": "backend/declarations/playlists"
+        "node_compatibility": true
       }
-    }
-  },
-  "networks": {
-    "local": {
-      "bind": "127.0.0.1:4943",
-      "type": "ephemeral"
+    },
+    "ii_integration": {
+      "dependencies": ["playlists"],
+      "type": "assets",
+      "source": ["src/ii_integration/assets", "src/ii_integration/dist"]
     }
   },
   "defaults": {

@@ -57,7 +57,7 @@ const Home = ({ navigation }) => {
     return (
       <OverflowMenu
         OverflowIcon={({ color }) => (
-          <Ionicons name={"ellipsis-horizontal"} size={20} color={color} />
+          <Ionicons name={"ellipsis-horizontal"} size={23} color={color} />
         )}
       >
         <HiddenItem
@@ -81,7 +81,21 @@ const Home = ({ navigation }) => {
           disabled={playlist.length <= 0}
           buttonStyle={playlist.length <= 0 && { color: "gray" }}
         />
-        <HiddenItem title={"Logout"} onPress={logout} />
+        <HiddenItem
+          title={"Logout"}
+          onPress={() => {
+            Alert.alert("Logout", "Are you sure you want to logout?", [
+              {
+                text: "Cancel",
+                style: "cancel",
+              },
+              {
+                text: "Logout",
+                onPress: () => logout(),
+              },
+            ]);
+          }}
+        />
       </OverflowMenu>
     );
   }, [playlist]);
@@ -106,13 +120,13 @@ const Home = ({ navigation }) => {
           <RefreshControl refreshing={isRefreshing} onRefresh={fetchPlaylist} />
         }
         ListEmptyComponent={
-          !isRefreshing && (
+          !isRefreshing ? (
             <View style={styles.emptyTextContainer}>
               <Text style={styles.emptyText}>
                 No songs in the playlist yet.
               </Text>
             </View>
-          )
+          ) : null
         }
       />
     </SwipeableProvider>
