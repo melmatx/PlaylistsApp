@@ -14,12 +14,12 @@
     "generate": "dfx generate playlists"
   },
   "dependencies": {
-    "@dfinity/agent": "file:dfinity-agent-0.20.2.tgz",
-    "@dfinity/bls-verify": "file:dfinity-bls-verify-0.20.2.tgz",
-    "@dfinity/candid": "^0.20.2",
-    "@dfinity/identity": "^0.20.2",
-    "@dfinity/principal": "^0.20.2",
-    "@noble/curves": "file:noble-curves-1.2.0.tgz",
+    "@dfinity/agent": "^1.2.0",
+    "@dfinity/candid": "^1.2.0",
+    "@dfinity/identity": "^1.2.0",
+    "@dfinity/principal": "^1.2.0",
+    "@noble/curves": "^1.4.0",
+    "@react-native-async-storage/async-storage": "1.21.0",
     "@react-navigation/native": "^6.1.10",
     "@react-navigation/native-stack": "^6.9.18",
     "amcl-js": "^3.1.0",
@@ -33,17 +33,13 @@
     "expo-web-browser": "^12.8.2",
     "react": "18.2.0",
     "react-native": "0.73.4",
-    "react-native-fetch-api": "^3.0.0",
     "react-native-gesture-handler": "~2.14.0",
-    "react-native-polyfill-globals": "^3.1.0",
     "react-native-root-toast": "^3.5.1",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
     "react-navigation-header-buttons": "^11.2.1",
     "text-encoding": "^0.7.0",
-    "web-streams-polyfill": "^3.3.2",
-    "zustand": "^4.5.0",
-    "@react-native-async-storage/async-storage": "1.21.0"
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

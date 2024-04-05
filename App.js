@@ -1,4 +1,3 @@
-import "react-native-polyfill-globals/auto";
 import "./globals";
 
 import { RootSiblingParent } from "react-native-root-siblings";

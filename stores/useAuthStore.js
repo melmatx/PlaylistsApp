@@ -78,7 +78,7 @@ const useAuthStore = create((set, get) => ({
     // Get public key
     const publicDerKey = toHex(get().baseKey.getPublicKey().toDer());
     const url = new URL(
-      "http://127.0.0.1:4943/?canisterId=bkyz2-fmaaa-aaaaa-qaaaq-cai"
+      "http://localhost:4943/?canisterId=bkyz2-fmaaa-aaaaa-qaaaq-cai"
     ); // Replace with own canister url
 
     // Set redirect uri

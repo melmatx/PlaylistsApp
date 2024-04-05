@@ -1,9 +1,15 @@
 {
   "canisters": {
     "internet_identity": {
-      "type": "pull",
-      "id": "rdmx6-jaaaa-aaaaa-aaadq-cai",
-      "frontend": {}
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "frontend": {},
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
     },
     "playlists": {
       "main": "src/playlists/main.mo",
@@ -13,7 +19,6 @@
       }
     },
     "ii_integration": {
-      "dependencies": ["playlists"],
       "type": "assets",
       "source": ["src/ii_integration/assets", "src/ii_integration/dist"]
     }
